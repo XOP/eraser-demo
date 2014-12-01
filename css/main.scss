@@ -16,10 +16,11 @@ h1 {
 		padding: 40px 0 0;
 		margin: 0;
 		}
+	}
 
-	&.flex {
-		display: flex;
-		}
+
+.flex {
+	display: flex;
 	}
 
 .flex_i {
@@ -34,6 +35,16 @@ h1 {
 		}
 	}
 
+.flex-auto {
+	margin: auto;
+	}
+
+
+.hidden {
+	visibility: hidden;
+	}
+
+
 button {
 
 	font-size: 16px;
@@ -42,15 +53,12 @@ button {
 		opacity: 1;
 		visibility: visible;
 
-		-webkit-transition: opacity .5s ease-out, visibility 0s .5s;
-		transition: opacity .5s ease-out, visibility 0 .5s;
+		transition: opacity .5s, visibility 0s;
 
 		&.hidden {
 			opacity: 0;
-			visibility: hidden;
 
-			-webkit-transition-delay: 0s;
-			transition-delay: 0s;
+			transition-delay: 0s, .5s;
 			}
 		}
 	}
@@ -74,6 +82,8 @@ $w-demo : 400px;
 
 	.eraser-holder_i {
 		position: absolute;
+
+		user-select: none;
 		}
 
 	// target image
@@ -84,6 +94,13 @@ $w-demo : 400px;
 		background-color: #333;
 		background-repeat: no-repeat;
 		background-position: 50%;
+
+		color: #eee;
+		font-size: 84px;
+		text-align: center;
+		line-height: .9;
+
+		pointer-events: none;
 		}
 
 	// canvas
@@ -92,6 +109,22 @@ $w-demo : 400px;
 
 		height: $h-demo;
 		width: $w-demo;
+
+		background: #fff; // init background
+		cursor: url(../i/trs.gif), text;
+		}
+
+	.eraser-pointer {
+		position: absolute;
+		z-index: 4;
+
+		width: 50px;
+		height: 50px;
+
+		background: url(../i/eraser.png) no-repeat;
+		background-size: 100% 100%;
+
+		pointer-events: none;
 		}
 
 .eraser-info {

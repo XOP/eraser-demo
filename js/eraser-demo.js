@@ -5,13 +5,17 @@ $(function(){
     //
     // prepare canvas
     var canvas = $('#eraserCover');
+    var percent = $('#eraserProgress');
+    var pointer = $('#eraserPointer');
+
     var ctx = canvas[0].getContext('2d');
-    canvas.data('ctx', ctx);
 
     var canvasWidth = 400;
     var canvasHeight = 400;
     ctx.canvas.width = canvasWidth;
     ctx.canvas.height = canvasHeight;
+
+    var revealPoint = .6;
 
 
     //
@@ -27,43 +31,75 @@ $(function(){
         ctx.fillStyle = pattern;
         ctx.fill();
 
+        canvas.css('background', 'none');
+
         // init eraser
         canvas.eraser({
             size: 50,
-            completeRatio: .2,
-            completeFunction: revealImage
+            completeRatio: 1, // never stop erasing
+            progressFunction: function(p) {
+                percent.text(Math.floor((1 - p)*100) + '%');
+
+                // on progress show controls
+                if(p > revealPoint){
+                    eraserCallback();
+                }
+            }
         });
     };
 
 
     //
+    // eraser listener
+    canvas.on(
+        {
+            'mousemove' : function(e){
+
+                pointer.css({
+                    top : e.pageY - canvas.data('eraser').posY - 25,
+                    left : e.pageX - canvas.data('eraser').posX - 25
+                });
+            },
+            'mouseover' : function(e){
+                pointer.removeClass('hidden');
+
+            },
+            'mouseout' : function(){
+                pointer.addClass('hidden');
+            }
+        });
+
+    //
     // set controls events
 
+    var controlClear = $('#eraserClear');
     var controlRestore = $('#eraserRestore');
 
-    controlRestore.on('click', function(){
-        restoreImage();
-    });
+    controlClear.on('click', clearImage);
+    controlRestore.on('click', restoreImage);
+
 
     //
     // having most of the image erased
     // show the full image
-    // and enable special button
-    function revealImage(){
+    // and enable restore button
+    function eraserCallback(){
+        controlClear.removeClass('hidden');
         controlRestore.removeClass('hidden');
     }
 
     //
     // restore full image
-    function restoreImage(){
-//        var pattern = ctx.createPattern(background,"repeat");
-//
-//        ctx.rect(0,0,canvasWidth,canvasHeight);
-//        ctx.fillStyle = pattern;
-//        ctx.fill();
+    function clearImage(){
+        canvas.eraser('clear');
+        percent.text('0%');
+    }
 
-        ctx.fillStyle = "red";
-        ctx.fillRect(0,0,canvasWidth,canvasHeight);
+    //
+    // restore full image
+    function restoreImage(){
+        canvas.eraser('reset');
+        percent.text('100%');
     }
 
 });

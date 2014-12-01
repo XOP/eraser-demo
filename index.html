@@ -19,17 +19,23 @@
             <div class="eraser">
 
                 <div class="eraser-holder container">
-                    <div class="eraser-under eraser-holder_i"></div>
+                    <div class="eraser-under eraser-holder_i flex">
+                        <span class="flex-auto">
+                            Some secret data
+                        </span>
+                    </div>
                     <canvas id="eraserCover" class="eraser-cover eraser-holder_i"></canvas>
+                    <div id="eraserPointer" class="eraser-pointer hidden"></div>
                 </div>
 
                 <div class="eraser-info container flex">
 
                     <div class="flex_i left">
+                        <button id="eraserClear" class="animated hidden">Clear all</button>
                         <button id="eraserRestore" class="animated hidden">Restore all</button>
                     </div>
                     <div class="flex_i right">
-                        <strong class="eraser-percent">
+                        <strong id="eraserProgress" class="eraser-percent">
                             100%
                         </strong>
                         coverage

@@ -12,8 +12,9 @@ h1 {
   .container.root {
     padding: 40px 0 0;
     margin: 0; }
-  .container.flex {
-    display: flex; }
+
+.flex {
+  display: flex; }
 
 .flex_i {
   flex: 1 0 auto; }
@@ -22,18 +23,21 @@ h1 {
   .flex_i.right {
     text-align: right; }
 
+.flex-auto {
+  margin: auto; }
+
+.hidden {
+  visibility: hidden; }
+
 button {
   font-size: 16px; }
   button.animated {
     opacity: 1;
     visibility: visible;
-    -webkit-transition: opacity .5s ease-out, visibility 0s .5s;
-    transition: opacity .5s ease-out, visibility 0 .5s; }
+    transition: opacity .5s, visibility 0s; }
     button.animated.hidden {
       opacity: 0;
-      visibility: hidden;
-      -webkit-transition-delay: 0s;
-      transition-delay: 0s; }
+      transition-delay: 0s, .5s; }
 
 .eraser {
   margin: auto; }
@@ -46,7 +50,8 @@ button {
   border-radius: 5px; }
 
 .eraser-holder_i {
-  position: absolute; }
+  position: absolute;
+  user-select: none; }
 
 .eraser-under {
   top: 0;
@@ -56,12 +61,28 @@ button {
   z-index: 1;
   background-color: #333;
   background-repeat: no-repeat;
-  background-position: 50%; }
+  background-position: 50%;
+  color: #eee;
+  font-size: 84px;
+  text-align: center;
+  line-height: .9;
+  pointer-events: none; }
 
 .eraser-cover {
   z-index: 2;
   height: 400px;
-  width: 400px; }
+  width: 400px;
+  background: #fff;
+  cursor: url(../i/trs.gif), text; }
+
+.eraser-pointer {
+  position: absolute;
+  z-index: 4;
+  width: 50px;
+  height: 50px;
+  background: url(../i/eraser.png) no-repeat;
+  background-size: 100% 100%;
+  pointer-events: none; }
 
 .eraser-info {
   text-align: right; }
