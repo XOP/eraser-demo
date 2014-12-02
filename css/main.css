@@ -46,6 +46,7 @@ button {
   position: relative;
   height: 400px;
   width: 400px;
+  overflow: hidden;
   border: 10px solid #888;
   border-radius: 5px; }
 

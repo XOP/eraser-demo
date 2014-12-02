@@ -16,6 +16,9 @@ $(function(){
     ctx.canvas.height = canvasHeight;
 
     var revealPoint = .6;
+    var rotateDegree = -10;
+    var eraserSize = 50;
+
 
 
     //
@@ -27,7 +30,10 @@ $(function(){
     background.onload = function(){
         var pattern = ctx.createPattern(background,"repeat");
 
-        ctx.rect(0,0,canvasWidth,canvasHeight);
+        ctx.translate(canvasWidth/2, canvasHeight/2);
+        ctx.rotate(rotateDegree*Math.PI/180);
+
+        ctx.rect(-canvasWidth/2, -canvasHeight/2, canvasWidth, canvasHeight);
         ctx.fillStyle = pattern;
         ctx.fill();
 
@@ -35,7 +41,8 @@ $(function(){
 
         // init eraser
         canvas.eraser({
-            size: 50,
+            size: eraserSize,
+            rotation: rotateDegree,
             completeRatio: 1, // never stop erasing
             progressFunction: function(p) {
                 percent.text(Math.floor((1 - p)*100) + '%');

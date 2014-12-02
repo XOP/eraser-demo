@@ -91,6 +91,7 @@
                             completeFunction = (options && options.completeFunction) ? options.completeFunction : null,
                             progressFunction = (options && options.progressFunction) ? options.progressFunction : null,
                             zIndex = $this.css('z-index') == "auto"?1:$this.css('z-index'),
+                            rotation = (options && options.rotation) ? options.rotation : null,
                             parts = [],
                             colParts = Math.floor(width / size),
                             numParts = colParts * Math.floor(height / size),
@@ -113,6 +114,13 @@
 
                         canvas.style.width = realWidth.toString() + "px";
                         canvas.style.height = realHeight.toString() + "px";
+
+
+                        if(rotation !== null){
+                            //ctx.translate(width/2, height/2);
+                            ctx.rotate(-rotation*Math.PI/180);
+                            ctx.translate(-width/2, -height/2);
+                        }
 
                         if(!isCanvas){
                             ctx.drawImage(that, 0, 0);
@@ -149,6 +157,7 @@
                             w: width,
                             h: height,
                             scaleRatio: scaleRatio,
+                            rotation: rotation,
                             size: size,
                             parts: parts,
                             colParts: colParts,
